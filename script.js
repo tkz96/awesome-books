@@ -1,10 +1,19 @@
-const booksDiv = document.querySelector('booksDiv');
+const bookTitle = document.getElementById('title');
+const bookAuthor = document.getElementById('author');
+const addBookButton = document.getElementById('addBook');
 
-const bookInfo = document.createElement('div');
 
-bookInfo.innerText = "hello";
+let listOfBooks = [];
 
-booksDiv.appendChild(li);
+const addBook = (e) => {
+    e.preventDefault();
+    let book = {
+        title: bookTitle.value,
+        author: bookAuthor.value
+    }
+    listOfBooks.push(book);
+    document.querySelector('form').reset();
+    localStorage.setItem("list of Books", JSON.stringify(listOfBooks));
+}
 
-console.log(li);
-console.log(booksDiv);
+addBookButton.addEventListener('click', addBook);
