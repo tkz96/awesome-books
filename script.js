@@ -13,7 +13,6 @@ function showBooks() {
         <ul id="theBooks">List of Books: <br />
         ${generateListOfBooks(listOfBooks)}</ul>
     `;
-
 }
 
 const addBook = (e) => {
@@ -29,9 +28,7 @@ const addBook = (e) => {
 function generateListOfBooks(arr) {
     let items = '';
     for(let i = 0; i < arr.length; i++) {
-        //remove the first line later
         items += `
-        <li>${i}</li>
         <li>${arr[i].title}</li> <br />
         <li>${arr[i].author}</li> <br />
         <li><button class="removeBtn" onclick="removeBook(${i})">Remove</button></li>
