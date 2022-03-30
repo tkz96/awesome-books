@@ -15,20 +15,30 @@ const addBook = (e) => {
     listOfBooks.push(book);
     document.querySelector("form").reset();
     localStorage.setItem("list of Books", JSON.stringify(listOfBooks));
+    booksDiv.innerHTML = `
+        <ul id="theBooks">List of Books: <br />
+        ${generateListOfBooks(listOfBooks)}</ul>
+    `;
 }
 
 function generateListOfBooks(arr) {
     let items = '';
     for(let i = 0; i < arr.length; i++) {
+        //remove the first line later
         items += `
+        <li>${i}</li>
         <li>${arr[i].title}</li> <br />
         <li>${arr[i].author}</li> <br />
+        <li><button class="removeBtn" onclick="removeBook(${i})">Remove</button></li>
+        <hr />
         `;
     }
     return items;
 }
-if (listOfBooks !== null) {
-    booksDiv.innerHTML = `<ul>${generateListOfBooks(listOfBooks)}</ul>`;
+
+function removeBook(i) {
+    listOfBooks.splice(i);
+    generateListOfBooks(listOfBooks);
 }
 
 addBookButton.addEventListener("click", addBook);
