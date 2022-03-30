@@ -37,7 +37,7 @@ function generateListOfBooks(arr) {
 }
 
 function removeBook(i) {
-    listOfBooks.splice(i);
+    listOfBooks.splice(i, 1);
     generateListOfBooks(listOfBooks);
 }
 
