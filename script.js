@@ -6,6 +6,16 @@ const booksDiv = document.getElementById("booksDiv");
 
 let listOfBooks = [];
 
+function showBooks() {
+    document.querySelector("form").reset();
+    localStorage.setItem("list of Books", JSON.stringify(listOfBooks));
+    booksDiv.innerHTML = `
+        <ul id="theBooks">List of Books: <br />
+        ${generateListOfBooks(listOfBooks)}</ul>
+    `;
+
+}
+
 const addBook = (e) => {
     e.preventDefault();
     let book = {
@@ -13,12 +23,7 @@ const addBook = (e) => {
         author: bookAuthor.value
     }
     listOfBooks.push(book);
-    document.querySelector("form").reset();
-    localStorage.setItem("list of Books", JSON.stringify(listOfBooks));
-    booksDiv.innerHTML = `
-        <ul id="theBooks">List of Books: <br />
-        ${generateListOfBooks(listOfBooks)}</ul>
-    `;
+    showBooks();
 }
 
 function generateListOfBooks(arr) {
@@ -38,7 +43,7 @@ function generateListOfBooks(arr) {
 
 function removeBook(i) {
     listOfBooks.splice(i, 1);
-    generateListOfBooks(listOfBooks);
+    showBooks();
 }
 
 addBookButton.addEventListener("click", addBook);
