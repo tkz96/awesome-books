@@ -1,46 +1,50 @@
-const bookTitle = document.getElementById("title");
-const bookAuthor = document.getElementById("author");
-const addBookButton = document.getElementById("addBook");
+const bookTitle = document.getElementById('title');
+const bookAuthor = document.getElementById('author');
+const addBookButton = document.getElementById('addBook');
 
-const booksDiv = document.getElementById("booksDiv");
+const booksDiv = document.getElementById('booksDiv');
 
-let listOfBooks = [];
+const listOfBooks = [];
 
 function generateListOfBooks(arr) {
-    let items = '';
-    for(let i = 0; i < arr.length; i+=1) {
-        items += `
+  let items = '';
+  for (let i = 0; i < arr.length; i += 1) {
+    items += `
         <li>${arr[i].title}</li> <br />
         <li>${arr[i].author}</li> <br />
         <li><button class="removeBtn" onclick="removeBook(${i})">Remove</button></li>
         <hr />
         `;
-    }
-    return items;
-}
-
-const addBook = (e) => {
-    e.preventDefault();
-    let book = {
-        title: bookTitle.value,
-        author: bookAuthor.value
-    }
-    listOfBooks.push(book);
-    showBooks();
-}
-
-function removeBook(i) {
-    listOfBooks.splice(i, 1);
-    showBooks();
+  }
+  return items;
 }
 
 function showBooks() {
-    document.querySelector("form").reset();
-    localStorage.setItem("list of Books", JSON.stringify(listOfBooks));
-    booksDiv.innerHTML = `
-        <ul id="theBooks">List of Books: <br />
-        ${generateListOfBooks(listOfBooks)}</ul>
-    `;
+  document.querySelector('form').reset();
+  localStorage.setItem('list of Books', JSON.stringify(listOfBooks));
+  booksDiv.innerHTML = `
+          <ul id="theBooks">List of Books: <br />
+          ${generateListOfBooks(listOfBooks)}</ul>
+      `;
 }
 
-addBookButton.addEventListener("click", addBook);
+const addBook = (e) => {
+  e.preventDefault();
+  const book = {
+    title: bookTitle.value,
+    author: bookAuthor.value,
+  };
+  listOfBooks.push(book);
+  showBooks();
+};
+
+/* eslint-disable no-unused-vars */
+
+function removeBook(i) {
+  listOfBooks.splice(i, 1);
+  showBooks();
+}
+
+/* eslint-enable no-unused-vars */
+
+addBookButton.addEventListener('click', addBook);
