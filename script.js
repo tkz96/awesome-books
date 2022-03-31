@@ -1,10 +1,22 @@
+/* eslint-disable no-unused-vars */
+
 const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const addBookButton = document.getElementById('addBook');
-
 const booksDiv = document.getElementById('booksDiv');
 
 const listOfBooks = [];
+
+if (localStorage.getItem('list of Books') === null) {
+  localStorage.setItem('list of Books', JSON.stringify([]));
+}
+
+// eslint-disable-next-line prefer-const
+let booksInLS = JSON.parse(localStorage.getItem('list of Books'));
+
+function updateLocalStorage() {
+  localStorage.setItem('list of Books', JSON.stringify(booksInLS));
+}
 
 function generateListOfBooks(arr) {
   let items = '';
@@ -20,31 +32,31 @@ function generateListOfBooks(arr) {
 }
 
 function showBooks() {
-  document.querySelector('form').reset();
-  localStorage.setItem('list of Books', JSON.stringify(listOfBooks));
   booksDiv.innerHTML = `
           <ul id="theBooks">List of Books: <br />
-          ${generateListOfBooks(listOfBooks)}</ul>
+          ${generateListOfBooks(booksInLS)}</ul>
       `;
 }
 
-const addBook = (e) => {
-  e.preventDefault();
+function addBook() {
   const book = {
     title: bookTitle.value,
     author: bookAuthor.value,
   };
-  listOfBooks.push(book);
-  showBooks();
-};
-
-/* eslint-disable no-unused-vars */
-
-function removeBook(i) {
-  listOfBooks.splice(i, 1);
+  booksInLS.push(book);
+  updateLocalStorage();
   showBooks();
 }
 
-/* eslint-enable no-unused-vars */
+function removeBook(i) {
+  booksInLS.splice(i, 1);
+  updateLocalStorage();
+  showBooks();
+}
 
-addBookButton.addEventListener('click', addBook);
+addBookButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  addBook();
+});
+
+/* eslint-enable no-unused-vars */
