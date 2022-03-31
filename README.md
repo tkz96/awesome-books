@@ -2,7 +2,7 @@
 
 # Awesome Books
 
-> This .
+> This project is to help myself learn how to deal with objects in JavaScript.
 
 ## Built With
 
