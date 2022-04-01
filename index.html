@@ -8,16 +8,30 @@
     <title>Awesome Books by Talha</title>
   </head>
   <body onload="showBooks()">
+    <nav>
+      <a href="index.html">Awesome Books</a>
+
+      <ul>
+        <li class="nav-list">
+          <a href="#" onclick="showBookSection()">Book List</a>
+        </li>
+        <li class="nav-list">
+          <a href="#" onclick="showFormSection()">Add a book</a>
+        </li>
+        <li class="nav-list">
+          <a href="#" onclick="showContactSection()">Contact</a>
+        </li>
+      </ul>
+    </nav>
     <main>
       <div class="container">
-        <div class="heading">
+        <div class="bookSection">
           <h1>Awesome Books</h1>
+          <div id="booksDiv"></div>
         </div>
 
-        <div id="booksDiv"></div>
-
         <div class="formSection">
-          <h3>Add a new book</h3>
+          <h1>Add a new book</h1>
           <form action="/">
             <input
               type="text"
@@ -36,8 +50,13 @@
             <button type="submit" id="addBook">Add</button>
           </form>
         </div>
-        <script src="script.js"></script>
+
+        <div class="contactSection">
+          <h1>Contact Us</h1>
+        </div>
       </div>
     </main>
+    <script src="script.js"></script>
+    <script src="show.js"></script>
   </body>
 </html>
