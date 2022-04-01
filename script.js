@@ -5,6 +5,7 @@ const bookAuthor = document.getElementById('author');
 const addBookButton = document.getElementById('addBook');
 const booksDiv = document.getElementById('booksDiv');
 const myForm = document.querySelector('form');
+const showDate = document.querySelector('.showDate');
 
 const booksInLS = [];
 
@@ -44,6 +45,19 @@ function generateListOfBooks(arg) {
   }
   return items;
 }
+
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth() + 1;
+const day = today.getDate();
+
+const hour = today.getHours();
+const minutes = today.getMinutes();
+const seconds = today.getSeconds();
+
+const date = `${month}/${day}/${year}, ${hour}:${minutes}:${seconds}`;
+
+showDate.innerHTML = `${date.toString()}`;
 
 function showBooks() {
   myForm.reset();
