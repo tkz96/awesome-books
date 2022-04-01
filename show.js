@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const bs = document.querySelector('.bookSection');
 const fs = document.querySelector('.formSection');
 const cs = document.querySelector('.contactSection');
