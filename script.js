@@ -4,59 +4,69 @@ const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const addBookButton = document.getElementById('addBook');
 const booksDiv = document.getElementById('booksDiv');
+const myForm = document.querySelector('form');
 
-const listOfBooks = [];
+const booksInLS = [];
 
-if (localStorage.getItem('list of Books') === null) {
-  localStorage.setItem('list of Books', JSON.stringify([]));
+class Book {
+  constructor() {
+    if (localStorage.getItem('list of Books') === null) {
+      this.booksInLS = localStorage.setItem('list of Books', JSON.stringify([]));
+    } else {
+      this.booksInLS = JSON.parse(localStorage.getItem('list of Books'));
+    }
+  }
+
+  thisOneActuallyAddsTheBook(bookTitle, bookAuthor) {
+    this.booksInLS.push({
+      title: bookTitle,
+      author: bookAuthor,
+    });
+    localStorage.setItem('list of Books', JSON.stringify(this.booksInLS));
+  }
+
+  thisOneActuallyRemovesTheBook(i) {
+    this.booksInLS.splice(i, 1);
+    localStorage.setItem('list of Books', JSON.stringify(this.booksInLS));
+  }
 }
 
-// eslint-disable-next-line prefer-const
-let booksInLS = JSON.parse(localStorage.getItem('list of Books'));
+const obj = new Book();
 
-function updateLocalStorage() {
-  localStorage.setItem('list of Books', JSON.stringify(booksInLS));
-}
-
-function generateListOfBooks(arr) {
+function generateListOfBooks(arg) {
   let items = '';
-  for (let i = 0; i < arr.length; i += 1) {
+  for (let i = 0; i < arg.length; i += 1) {
     items += `
-        <li>${arr[i].title}</li> <br />
-        <li>${arr[i].author}</li> <br />
-        <li><button class="removeBtn" onclick="removeBook(${i})">Remove</button></li>
-        <hr />
-        `;
+      <div class="bookDesc">
+        <li>${arg[i].title} by ${arg[i].author}</li> <button class="removeBtn" onclick="removeBook(${i})">Remove</button>
+      </div>
+    `;
   }
   return items;
 }
 
 function showBooks() {
+  myForm.reset();
   booksDiv.innerHTML = `
-          <ul id="theBooks">List of Books: <br />
-          ${generateListOfBooks(booksInLS)}</ul>
-      `;
+    <h3>All Awesome Books</h3>
+    <ul id="theBooks"> <br />
+      ${generateListOfBooks(obj.booksInLS)}</ul>
+  `;
 }
 
-function addBook() {
-  const book = {
-    title: bookTitle.value,
-    author: bookAuthor.value,
-  };
-  booksInLS.push(book);
-  updateLocalStorage();
+function addBook(title, author) {
+  obj.thisOneActuallyAddsTheBook(title, author);
   showBooks();
 }
 
 function removeBook(i) {
-  booksInLS.splice(i, 1);
-  updateLocalStorage();
+  obj.thisOneActuallyRemovesTheBook(i);
   showBooks();
 }
 
 addBookButton.addEventListener('click', (e) => {
   e.preventDefault();
-  addBook();
+  addBook(bookTitle.value, bookAuthor.value);
 });
 
 /* eslint-enable no-unused-vars */
